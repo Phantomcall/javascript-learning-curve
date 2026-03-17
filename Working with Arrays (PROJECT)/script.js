@@ -349,6 +349,10 @@ calcDisplaySummary(account1.movements);
 //const dogsKate = [9, 16, 6, 8, 3];
 //const dogskate1 = [10, 5, 6, 1, 4];
 
+
+
+
+
 //const dogsJuliaCorrect = dogsJulia.slice(1, -2);
 //const dogsJuliaCorrect1 = dogsJulia1.slice(1, -2);
 //const dogsJuilaKate = [...dogsJuliaCorrect, ...dogsKate];
