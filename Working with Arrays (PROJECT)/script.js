@@ -276,6 +276,8 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int);
+  
+  
 
   labelSumInterest.textContent = `${Math.abs(interest)}€`;
 };
