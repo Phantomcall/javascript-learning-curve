@@ -249,10 +249,9 @@ const displayMovements = function (movements) {
   });
 };
 
-const calcDisplayBalance = function (movements) {
-  const balance = movements.reduce((acc, curr) => acc + curr, 0);
-
-  labelBalance.textContent = `${balance} €`;
+const calcDisplayBalance = function (acc) {
+  acc.balance = acc.movements.reduce((acc, curr) => acc + curr, 0);
+  labelBalance.textContent = `${acc.balance} €`;
 };
 
 const calcDisplaySummary = function (acc) {
@@ -276,11 +275,113 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int);
-  
-  
 
   labelSumInterest.textContent = `${Math.abs(interest)}€`;
 };
+
+const creatUserName = function (accs) {
+  accs.forEach(function (acc) {
+    acc.username = acc.owner
+      .toLowerCase()
+      .split(" ")
+      .map(function (name) {
+        return name[0];
+      })
+      .join("");
+  });
+};
+
+creatUserName(accounts);
+
+const updateUI = function (acc) {
+  // DISPLAY MOVEMENTS:
+  displayMovements(acc.movements);
+
+  // DISPLAY BALANCE:
+  calcDisplayBalance(acc);
+
+  // DISPLAY SUMMARY:
+  calcDisplaySummary(acc);
+};
+
+//EVENT HANDLERS:
+let currentAccount;
+
+btnLogin.addEventListener("click", function (e) {
+  // Prevent form from submitting;
+  e.preventDefault();
+
+  currentAccount = accounts.find(
+    acc => acc.username === inputLoginUsername.value,
+  );
+  console.log(currentAccount);
+
+  if (currentAccount?.pin === Number(inputLoginPin.value)) {
+    console.log("LOGIN");
+  }
+
+  // DISPLAY UI AND MESSAGE:
+  labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(" ")[0]}`;
+  containerApp.style.opacity = 1;
+  // CLEAR INOUT FIELDS:
+  inputLoginUsername.value = inputLoginPin.value = "";
+
+  inputLoginUsername.blur();
+  inputLoginPin.blur();
+
+  updateUI(currentAccount);
+});
+
+btnTransfer.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  const amount = Number(inputTransferAmount.value);
+  const receiverAcc = accounts.find(
+    acc => acc.username === inputTransferTo.value,
+  );
+
+  // CLEAR INOUT FIELDS:
+  inputTransferAmount.value = inputTransferTo.value = "";
+
+  inputTransferAmount.blur();
+  inputTransferTo.blur();
+
+  if (
+    amount > 0 &&
+    receiverAcc &&
+    currentAccount.balance >= amount &&
+    receiverAcc?.username !== currentAccount.username
+  ) {
+    currentAccount.movements.push(-amount);
+    receiverAcc.movements.push(amount);
+
+    // UPDATE UI:
+    updateUI(currentAccount);
+  }
+});
+
+// DELETE USER ACCOUNT:
+btnClose.addEventListener("click", function (e) {
+  e.preventDefault();
+
+  if (
+    inputCloseUsername.value === currentAccount.username &&
+    Number(inputClosePin.value) === currentAccount.pin
+  ) {
+    const index = accounts.findIndex(
+      acc => acc.username === currentAccount.username,
+    );
+    console.log(index);
+
+    accounts.splice(index, 1);
+
+    containerApp.style.opacity = 0;
+  }
+
+  inputCloseUsername.value = inputClosePin.value = "";
+  inputCloseUsername.blur();
+  inputClosePin.blur();
+});
 
 // SAME CODE BUT WITH AN ARROW FUNCTION:
 //const username = user
@@ -309,54 +410,6 @@ const calcDisplaySummary = function (acc) {
 //console.log(username);
 
 //const user = "Steven Thomas Williams";
-
-const creatUserName = function (accs) {
-  accs.forEach(function (acc) {
-    acc.username = acc.owner
-      .toLowerCase()
-      .split(" ")
-      .map(function (name) {
-        return name[0];
-      })
-      .join("");
-  });
-};
-
-creatUserName(accounts);
-
-//EVENT HANDLERS:
-let currentAccount;
-
-btnLogin.addEventListener("click", function (e) {
-  // Prevent form from submitting;
-  e.preventDefault();
-
-  currentAccount = accounts.find(
-    acc => acc.username === inputLoginUsername.value,
-  );
-  console.log(currentAccount);
-
-  if (currentAccount?.pin === Number(inputLoginPin.value)) {
-    console.log("LOGIN");
-  }
-
-  // DISPLAY UI AND MESSAGE:
-  labelWelcome.textContent = `Welcome back, ${currentAccount.owner.split(" ")[0]}`;
-  containerApp.style.opacity = 1;
-  // CLEAR INOUT FIELDS:
-  inputLoginUsername.value = inputLoginPin.value = "";
-
-  inputLoginPin.blur();
-
-  // DISPLAY MOVEMENTS:
-  displayMovements(currentAccount.movements);
-
-  // DISPLAY BALANCE:
-  calcDisplayBalance(currentAccount.movements);
-
-  // DISPLAY SUMMARY:
-  calcDisplaySummary(currentAccount);
-});
 
 //console.log(accounts);
 

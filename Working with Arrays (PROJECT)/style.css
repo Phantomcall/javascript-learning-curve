@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 * {
   margin: 0;
@@ -290,4 +290,314 @@ h2 {
 
 .timer {
   font-weight: 600;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 56.25%; /* 1rem = 9px */
+  }
+
+  body {
+    width: 100%;
+    padding: 1.5rem;
+  }
+
+  nav {
+    padding: 0 1rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+
+  .welcome {
+    font-size: 1.7rem;
+  }
+
+  .logo {
+    height: 4.5rem;
+  }
+
+  .app {
+    margin: 2.5rem auto;
+    gap: 1.5rem;
+  }
+
+  .balance__value {
+    font-size: 3.8rem;
+  }
+
+  .operation {
+    padding: 2.5rem 3rem;
+  }
+}
+
+/* -------------------------------------------
+   600px — Tablet / large phone landscape
+   Switch main grid to single column so
+   movements and operations stack vertically.
+------------------------------------------- */
+@media (max-width: 600px) {
+  html {
+    font-size: 50%; /* 1rem = 8px */
+  }
+
+  body {
+    width: 100%;
+    padding: 1.2rem;
+    height: auto; /* Allow page to scroll freely */
+    min-height: 100vh;
+  }
+
+  nav {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.2rem;
+    padding: 0 0.5rem;
+  }
+
+  .login {
+    width: 100%;
+  }
+
+  .login__input {
+    flex: 1;
+    width: auto;
+  }
+
+  /* Collapse the two-column grid to a single column */
+  .app {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    margin: 2rem auto;
+    gap: 1.5rem;
+  }
+
+  /* Balance spans full width (no longer needs explicit span) */
+  .balance {
+    grid-column: 1 / -1;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .balance__value {
+    font-size: 3.5rem;
+  }
+
+  /* Movements: reset the grid-row pinning from desktop */
+  .movements {
+    grid-row: auto;
+    max-height: 35rem;
+  }
+
+  .movements__row {
+    padding: 1.8rem 2rem;
+  }
+
+  /* Summary: allow wrapping on narrow screens */
+  .summary {
+    grid-row: auto;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+
+  .operation {
+    padding: 2rem 2.5rem;
+  }
+
+  .logout-timer {
+    text-align: left;
+  }
+}
+
+/* -------------------------------------------
+   480px — Mid-size phones
+   Tighten forms, reduce padding further.
+------------------------------------------- */
+@media (max-width: 480px) {
+  html {
+    font-size: 46.875%; /* 1rem ≈ 7.5px */
+  }
+
+  body {
+    width: 100%;
+  }
+
+  nav {
+    gap: 1rem;
+  }
+
+  .welcome {
+    font-size: 1.6rem;
+  }
+
+  .logo {
+    height: 4rem;
+  }
+
+  .balance__label {
+    font-size: 2rem;
+  }
+
+  .balance__value {
+    font-size: 3.2rem;
+  }
+
+  .movements__row {
+    padding: 1.5rem 1.5rem;
+  }
+
+  .movements__type {
+    margin-right: 1.2rem;
+  }
+
+  /* Stack form fields vertically for comfortable tapping */
+  .form,
+  .form.form--loan {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto auto;
+  }
+
+  .form__btn {
+    grid-column: 1 / -1;
+    padding: 0.8rem;
+    font-size: 2rem;
+  }
+
+  .form__label--loan {
+    grid-row: auto;
+  }
+
+  .operation {
+    padding: 1.8rem 2rem;
+  }
+
+  h2 {
+    font-size: 1.6rem;
+  }
+
+  .summary__value {
+    font-size: 2rem;
+    margin-right: 1.8rem;
+  }
+}
+
+/* -------------------------------------------
+   375px — Standard phones (iPhone SE / 14)
+   Smallest comfortable usable layout.
+------------------------------------------- */
+@media (max-width: 375px) {
+  html {
+    font-size: 43.75%; /* 1rem = 7px */
+  }
+
+  body {
+    width: 100%;
+    padding: 1rem;
+  }
+
+  nav {
+    padding: 0;
+  }
+
+  .login__input {
+    padding: 0.5rem 1.2rem;
+    font-size: 1.5rem;
+  }
+
+  .balance__value {
+    font-size: 3rem;
+  }
+
+  .movements__row {
+    padding: 1.4rem 1.2rem;
+  }
+
+  .movements__value {
+    font-size: 1.6rem;
+  }
+
+  .form,
+  .form.form--loan {
+    grid-template-columns: 1fr;
+  }
+
+  .form__btn {
+    grid-column: 1;
+    width: 100%;
+    padding: 1rem;
+  }
+
+  .form__input {
+    font-size: 1.4rem;
+  }
+
+  .operation {
+    padding: 1.5rem 1.5rem;
+  }
+
+  .summary {
+    gap: 0.3rem;
+  }
+
+  .summary__label {
+    font-size: 1.1rem;
+  }
+
+  .summary__value {
+    font-size: 1.8rem;
+    margin-right: 1.2rem;
+  }
+
+  .logout-timer {
+    font-size: 1.2rem;
+  }
+}
+
+/* -------------------------------------------
+   320px — Very small phones (iPhone SE 1st gen)
+   Absolute minimum — keep it functional.
+------------------------------------------- */
+@media (max-width: 320px) {
+  html {
+    font-size: 40%; /* 1rem = 6.4px */
+  }
+
+  .welcome {
+    font-size: 1.5rem;
+  }
+
+  .logo {
+    height: 3.5rem;
+  }
+
+  .balance__value {
+    font-size: 2.8rem;
+  }
+
+  .login__input {
+    width: 9rem;
+    padding: 0.4rem 1rem;
+  }
+
+  .movements__type {
+    font-size: 1rem;
+    padding: 0.1rem 0.8rem;
+    margin-right: 0.8rem;
+  }
+
+  .form__input {
+    padding: 0.3rem 0.6rem;
+    font-size: 1.3rem;
+  }
+
+  .operation {
+    padding: 1.2rem 1.2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
 }
